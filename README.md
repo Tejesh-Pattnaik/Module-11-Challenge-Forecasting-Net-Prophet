@@ -1,107 +1,84 @@
-# Forecasting Net Prophet
+# Forecasting Net Profit
 
-## Unusual Patterns in Hourly Google Search Traffic
+## Analysis of Hourly Google Search Traffic Patterns
 
-### Task
-The goal of this step is to identify unusual patterns in Mercado Libre's hourly Google search traffic and connect them to corporate financial events.
+### Objective
+The objective of this phase is to discern noteworthy trends in Mercado Libre's hourly Google search traffic and establish correlations with key corporate financial events.
 
-### Steps
-1. Read the search data into a DataFrame and slice it to include only the month of May 2020.
-2. Visualize the results using hvPlot to identify any unusual patterns.
-3. Calculate the total search traffic for May 2020 and compare it to the monthly median. Determine if the traffic increased during the release of quarterly financial results.
+### Procedure
+1. Ingest the search data into a DataFrame and filter it to encompass only the month of May 2020.
+2. Utilize hvPlot to visually represent the outcomes and identify any anomalous patterns.
+3. Compute the aggregate search traffic for May 2020, contrasting it with the monthly median. Evaluate whether there was an upswing in traffic during the release of quarterly financial results.
 
-### Results
- __The google search trend increased by 8.55% when Mercadolab released its financial results.__
+### Findings
+__The Google search trend exhibited an 8.55% increase coinciding with Mercadolab's financial results release.__
 
-![1](Plots/Trends_may_2020.png)
+## Analysis of Seasonality in Search Traffic Data
 
+### Objective
+This phase involves scrutinizing the search traffic data for discernible seasonal patterns related to the company, with a focus on hourly data.
 
-## Mine the Search Traffic Data for Seasonality
+### Procedure
+1. Aggregate the hourly search data to plot the average traffic by the day of the week.
+2. Visualize the traffic using hvPlot as a heatmap, referencing the hour and day of the week.
+3. Group the data by the week of the year and observe if search traffic experiences an uptick during the winter holiday period.
 
-### Task
-This step involves mining the search traffic data for predictable seasonal patterns of interest in the company, focusing on hourly data.
+### Findings
 
-### Steps
-1. Group the hourly search data to plot the average traffic by the day of the week.
-2. Visualize the traffic as a heatmap using hvPlot, referencing the hour and day of the week.
-3. Group the data by the week of the year and observe if search traffic increases during the winter holiday period.
+* __Search traffic peaks during midnight hours, particularly on weekdays.__
+* __Contrarily, search traffic tends to decrease during the winter holiday period.__
 
-### Results
-![12](Plots/Avg_traffic_by_weekday.png)
-![12](Plots/Hours_trading_trends.png)
-![12](Plots/Avg_traffic_by_year.png)
+## Correlation Between Search Traffic and Stock Price Patterns
 
-* __Search Traffic is very high at the mid night hours of a given day, especially on the weekdays.__
-* __The search traffic rather tends to decrease during the winter holiday period.__
+### Objective
+Investigate the relationship between Google search data and the stock price patterns of the company.
 
+### Procedure
+1. Ingest and plot the stock price data, concatenate it with the search data.
+2. Filter the data to the first half of 2020 and visualize the time series. Assess whether both datasets indicate a common trend.
+3. Introduce lagged search trends and additional columns for stock volatility and hourly stock return.
+4. Examine the time series correlation to identify relationships.
 
-## Relate the Search Traffic to Stock Price Patterns
+### Findings
 
-### Task
-Explore the relationship between Google search data and the company's stock price patterns.
+* __Search trends did not exhibit comparable or significant changes in the first half of 2020, while the stock closing price consistently increased, indicating a growth in customer numbers and revenue.__
+* __Volatility spiked during the first half of 2020, a common characteristic in global stock returns where high volatility days tend to be followed by more high volatility days.__
 
-### Steps
-1. Read and plot the stock price data, concatenate it with the search data.
-2. Slice the data to the first half of 2020 and plot the time series. Assess if both indicate a common trend.
-3. Create lagged search trends and additional columns for stock volatility and hourly stock return.
-4. Review the time series correlation to identify relationships.
+## Development of a Time Series Model using Prophet
 
-### Results
-![12](Plots/Closing_price.png)
-![12](Plots/Trends_2020_first_half.png)
-![12](Plots/Volatility.png)
+### Objective
+Construct a time series model to analyze and forecast patterns in hourly search data.
 
-* __The search trends did not observe any comparable or significant changes through the first half in 2020 but the stock closing price consistenly grew over the tenure indicating the increase in the number of customers and therefore revenue.__
+### Procedure
+1. Configure the Google search data for a Prophet forecasting model.
+2. Estimate the model and visualize the forecast.
+3. Analyze individual time series components to address specific inquiries regarding popularity and search traffic.
 
-* __Note how volatility spiked, and tended to stay high, during the first half of 2020. This is a common characteristic of volatility in stock returns worldwide: high volatility days tend to be followed by yet more high volatility days. When it rains, it pours.__
+### Findings
 
-## SCreate a Time Series Model by Using Prophet
+* __The forecast model indicates a downward trend in the search trend for Mercado in the near term.__
+* __The midnight hours, specifically 12 am, exhibit the highest popularity in the trends.__
+* __Tuesdays attract the most traffic.__
+* __October indicates the lowest point of search traffic in the calendar year.__
 
-### Task
-Build a time series model to analyze and forecast patterns in the hourly search data.
+## Revenue Forecasting using Time Series Models
 
-### Steps
-1. Set up the Google search data for a Prophet forecasting model.
-2. Estimate the model and plot the forecast.
-3. Analyze individual time series components to answer specific questions about popularity and search traffic.
+### Objective
+Generate a forecast for total sales in the next quarter using historical revenue figures.
 
-### Results
-![12](Plots/Forecast_trends.png)
-
-* __The forecast model indicates that the search trend for mercado will decrease in the near term.__
-
-![12](Plots/search_trends_forecast.png)
-![12](Plots/plot_comp1.png)
-![12](Plots/Plot_comp2.png)
-
-* __The midnight hours exhibit the greatest popularity in the trends i.e., 12am__
-* __Tuesdays get the most traffic__
-* __October indicates the lowest point of search traffic in the calendar year__
-
-
-## Forecast the Revenue by Using Time Series Models
-
-### Task
-Create a forecast for total sales in the next quarter using historical revenue figures.
-
-### Steps
-1. Read in daily historical sales figures and apply a Prophet model.
+### Procedure
+1. Ingest daily historical sales figures and apply a Prophet model.
 2. Interpret the model output to identify seasonal patterns in company revenue.
-3. Produce a sales forecast for the finance group, including best- and worst-case scenarios.
+3. Generate a sales forecast for the finance group, encompassing best- and worst-case scenarios.
 
-### Results
-![12](Plots/daily_sales.png)
+### Findings
 
-![12](Plots/plot_comp3.png)
-* __Wednesdays have the highest revenue__
+* __Wednesdays boast the highest revenue.__
 
-![12](Plots/sales_forecast.png)
 ---
 
-We can predict next quarter's total sales with 95% certainty as follows:
+We can confidently predict the total sales for the next quarter with 95% certainty as follows:
 
 * ___Best case: $1.051 billion___
-
 * ___Worst case: $888.23 million___
-
 * ___Most likely: $969.63 million___
